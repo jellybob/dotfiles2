@@ -13,3 +13,6 @@ set hidden
 
 set number
 highlight clear SignColumn
+
+let mapleader=","
+map <Leader>p :CtrlPMixed<CR>
