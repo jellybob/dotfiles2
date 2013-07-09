@@ -1,0 +1,7 @@
+[user]
+	email = jon@ninjagiraffes.co.uk
+	name = Jon Wood
+[core]
+	excludesfile = ~/Config/git/global_ignore
+[init]
+	templatedir = ~/Config/git/template/

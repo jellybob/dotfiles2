@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+CONFIG_ROOT = File.join(ENV["HOME"], "Config")
+TARGET = ENV["HOME"]
+
+# This method actually does the business.
+def run_setup
+  link_config_files(
+    [ "vim", "profile", "tmux.conf" ],
+    { "vim/vimrc" => ".vimrc",
+      "git/config" => ".gitconfig" }
+  )
+end
+
+def create_link(source, target)
+  source = "#{CONFIG_ROOT}/#{source}"
+  target = "#{TARGET}/#{target}"
+
+  if File.symlink?(target)
+    %x{rm #{target}}
+  end
+
+  if File.exist?(target)
+    puts "ERROR: #{target} already exists, and is not a symlink"
+  else
+    puts "Linking #{source} to #{target}"
+    %x{ln -s #{source} #{target}}
+  end
+end
+
+def link_config_files(normal_links = [], special_mappings = {})
+  normal_links.each do |src|
+    create_link(src, ".#{src}")
+  end
+
+  special_mappings.each do |src, target|
+    create_link(src, target)
+  end
+end
+
+run_setup

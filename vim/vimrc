@@ -1,0 +1,15 @@
+execute pathogen#infect()
+runtime! plugin/sensible.vim
+
+syntax on
+filetype plugin indent on
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" Allow buffers to be changed without saving first.
+set hidden
+
+set number
+highlight clear SignColumn
