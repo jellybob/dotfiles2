@@ -17,3 +17,6 @@ highlight clear SignColumn
 
 let mapleader=","
 map <Leader>p :CtrlPMixed<CR>
+
+map <Leader>hp :GitGutterPrevHunk<CR>
+map <Leader>hn :GitGutterNextHunk<CR>
