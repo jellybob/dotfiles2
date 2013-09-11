@@ -26,6 +26,11 @@ fi
 source $HOME/Hubbub/chef/env
 eval "$(rbenv init -)"
 
+export EDITOR="vim"
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+
 alias gs="git status"
 alias gcm="git commit -m"
 alias gaa="git add --all"
+
+alias db="./script/dbconsole"
