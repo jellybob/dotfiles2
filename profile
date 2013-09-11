@@ -22,7 +22,6 @@ if [ -f "$HOME/Config/git/git_prompt.sh" ]; then
   source $HOME/Config/git/git_prompt.sh
   GIT_PS1_SHOWDIRTYSTATE=1
   GIT_PS1_SHOWUNTRACKED_FILES=1
-  GIT_PS1_SHOWUPSTREAM="auto"
 
   export PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 fi
