@@ -8,7 +8,8 @@ def run_setup
   link_config_files(
     [ "vim", "profile", "tmux.conf" ],
     { "vim/vimrc" => ".vimrc",
-      "git/config" => ".gitconfig" }
+      "git/config" => ".gitconfig",
+      "awesome" => "awesome" }
   )
 end
 
