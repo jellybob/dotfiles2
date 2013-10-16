@@ -31,10 +31,12 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-source $HOME/Hubbub/chef/env
+#source $HOME/Hubbub/chef/env
 eval "$(rbenv init -)"
 
 export EDITOR="vim"
+export MAKE_ARGS="-j$(grep processor /proc/cpuinfo | wc -l)"
+
 eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 
 alias gs="git status"
