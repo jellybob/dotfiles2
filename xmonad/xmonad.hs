@@ -1,18 +1,23 @@
 import XMonad
+import XMonad.Layout.Tabbed
+import XMonad.Layout.NoBorders
 import XMonad.Config.Gnome
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig
 import XMonad.Actions.CycleWS
 import qualified DBus as D
 import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
+import Data.Ratio ((%))
 
 main :: IO ()
 main = do
 	dbus <- D.connectSession
 	getWellKnownName dbus
 	xmonad $ gnomeConfig { modMask = mod4Mask 
-	                     , logHook = dynamicLogWithPP (prettyPrinter dbus) }
+	                     , logHook = dynamicLogWithPP (prettyPrinter dbus) 
+                       , layoutHook = layouts }
 		`additionalKeysP`
 		[ ("M-u", prevScreen)
 		, ("M-i", nextScreen)
@@ -31,6 +36,14 @@ prettyPrinter dbus = defaultPP
     , ppSep      = "  |  "
     }
 
+layouts = avoidStruts (smartBorders (simpleTabbed ||| tiled ||| Mirror tiled ||| Full))
+          where
+            tiled = Tall nmaster delta ratio
+            nmaster = 1     -- Number of master windows
+            ratio = 2%3     -- The amount of the screen the master pane takes
+            delta = 5%100   -- The proportion to increment size by
+
+-- A huge amount of stuff for the panel applet
 getWellKnownName :: D.Client -> IO ()
 getWellKnownName dbus = do
   D.requestName dbus (D.busName_ "org.xmonad.Log")
