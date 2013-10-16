@@ -31,7 +31,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-#source $HOME/Hubbub/chef/env
+source $HOME/Hubbub/chef/env
 eval "$(rbenv init -)"
 
 export EDITOR="vim"
