@@ -6,7 +6,7 @@ TARGET = ENV["HOME"]
 # This method actually does the business.
 def run_setup
   link_config_files(
-    [ "vim", "profile", "tmux.conf", "xmonad" ],
+    [ "vim", "profile", "tmux.conf", "xmonad", "gemrc" ],
     { "vim/vimrc" => ".vimrc",
       "git/config" => ".gitconfig",
       "awesome" => "awesome" }
