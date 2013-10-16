@@ -6,11 +6,13 @@ TARGET = ENV["HOME"]
 # This method actually does the business.
 def run_setup
   link_config_files(
-    [ "vim", "profile", "tmux.conf" ],
+    [ "vim", "profile", "tmux.conf", "xmonad" ],
     { "vim/vimrc" => ".vimrc",
       "git/config" => ".gitconfig",
       "awesome" => "awesome" }
   )
+
+  checkout_rbenv
 end
 
 def create_link(source, target)
@@ -36,6 +38,22 @@ def link_config_files(normal_links = [], special_mappings = {})
 
   special_mappings.each do |src, target|
     create_link(src, target)
+  end
+end
+
+def checkout_rbenv
+  unless File.exist?("#{TARGET}/.rbenv")
+    puts "Checking out rbenv..."
+    %x{git clone https://github.com/sstephenson/rbenv.git #{TARGET}/.rbenv}
+  end
+
+  unless File.exist?("#{TARGET}/.rbenv/plugins")
+    %x{mkdir #{TARGET}/.rbenv/plugins}
+  end
+
+  unless File.exist?("#{TARGET}/.rbenv/plugins/ruby-build")
+    puts "Installing ruby-build..."
+    %x{git clone https://github.com/sstephenson/ruby-build.git #{TARGET}/.rbenv/plugins/ruby-build}
   end
 end
 
