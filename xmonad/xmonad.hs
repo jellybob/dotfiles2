@@ -22,7 +22,8 @@ main = do
 		[ ("M-u", prevScreen)
 		, ("M-i", nextScreen)
 		, ("M-S-u", shiftPrevScreen >> prevScreen)
-		, ("M-S-i", shiftNextScreen >> nextScreen) ]
+		, ("M-S-i", shiftNextScreen >> nextScreen)
+		, ("M-r", gnomeRun) ]
 
 prettyPrinter :: D.Client -> PP
 prettyPrinter dbus = defaultPP
@@ -36,7 +37,7 @@ prettyPrinter dbus = defaultPP
     , ppSep      = "  |  "
     }
 
-layouts = avoidStruts (smartBorders (simpleTabbed ||| tiled ||| Mirror tiled ||| Full))
+layouts = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| Full ||| simpleTabbed))
           where
             tiled = Tall nmaster delta ratio
             nmaster = 1     -- Number of master windows
